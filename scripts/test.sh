@@ -1,4 +1,4 @@
-echo "Hello World"
+#!/bin/bash
 
 echo "Set up ssh"
 mkdir -p ~/.ssh

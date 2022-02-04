@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Run script
-        shell: bash
+        # shell: bash
         run: |
           bash scripts/test.sh abcd 10.10.0.200
 
