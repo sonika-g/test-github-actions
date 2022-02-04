@@ -13,7 +13,7 @@ jobs:
       - name: Echo Hello World
         shell: bash
         run: |
-          bash scripts/test.sh
+          bash scripts/test.sh abcd
 
       # - name: create inventory file
       #   run: |
