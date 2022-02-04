@@ -1,0 +1,31 @@
+name: Test Script
+on:
+  workflow_dispatch:
+
+jobs:
+  build-timesheets-server-staging:
+    name: Test Script Run
+    runs-on: ubuntu-20.04
+    steps:
+      # - name: Checkout repository
+      #   uses: actions/checkout@v2
+        
+      - name: Echo Hello World
+        shell: bash
+        run: |
+          bash scripts/test.sh
+
+      # - name: create inventory file
+      #   run: |
+      #     echo '[timesheets_server] 
+      #     server' > ~/inventory
+
+      # - name: setup and run ansible playbook
+      #   env:
+      #     ENV: staging
+      #     AWS_ACCESS_KEY_ID: ${{secrets.TIMESHEETS_STAGING_AWS_ACCESS_KEY_ID}}
+      #     AWS_SECRET_ACCESS_KEY: ${{secrets.TIMESHEETS_STAGING_AWS_SECRET_ACCESS_KEY}}
+      #     AWS_DEFAULT_REGION: ${{secrets.TIMESHEETS_STAGING_AWS_DEFAULT_REGION}} 
+      #   run: |
+      #    bash scripts/environment_setup.sh server-build.yml staging
+ 
