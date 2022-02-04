@@ -7,3 +7,12 @@ echo "File created"
 cat ~/.ssh/id_rsa
 echo "Permission Changed"
 chmod 400 ~/.ssh/id_rsa
+
+echo "Set up ssh config"
+echo "Host $2
+HostName server
+StrictHostKeyChecking no
+User ec2-user
+IdentityFile ~/.ssh/id_rsa
+ProxyCommand none" > ~/.ssh/config
+cat ~/.ssh/config

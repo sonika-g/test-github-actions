@@ -10,7 +10,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         
-      - name: Echo Hello World
+      - name: Run script
         shell: bash
         run: |
           bash scripts/test.sh abcd
