@@ -1,6 +1,6 @@
 name: Test Script
 on:
-  workflow_dispatch:
+  push
 
 jobs:
   build-timesheets-server-staging:
