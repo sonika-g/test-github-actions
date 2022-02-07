@@ -18,7 +18,6 @@ StrictHostKeyChecking no
 User ec2-user
 IdentityFile ~/.ssh/id_rsa
 ProxyCommand none" > ~/.ssh/config
-exit
 
 echo "Create Inventory File"
 echo "[$3] 

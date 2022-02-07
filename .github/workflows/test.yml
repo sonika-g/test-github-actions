@@ -11,11 +11,10 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Setup ssh
-        shell: bash
         env:
           SSH_PRIVATE_KEY: secret_key
         run: |
-         bash scripts/ssh_setup.sh "$SSH_PRIVATE_KEY" timesheet.ts-stage.everest.engineering 'timesheets_server'
+         bash scripts/test.sh "$SSH_PRIVATE_KEY" timesheet.ts-stage.everest.engineering timesheets_server
 
       # - name: setup and run ansible playbook
       #   env:
