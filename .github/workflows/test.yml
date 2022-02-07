@@ -10,18 +10,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         
-       - name: Setup ssh
+      - name: Setup ssh
         shell: bash
         env:
           SSH_PRIVATE_KEY: secret_key
         run: |
          bash scripts/ssh_setup.sh "$SSH_PRIVATE_KEY" timesheet.ts-stage.everest.engineering 'timesheets_server'
-
-      - name: create inventory file
-        run: |
-          echo '[timesheets_server] 
-          server' > ~/inventory
-          cat ~/inventory
 
       # - name: setup and run ansible playbook
       #   env:
