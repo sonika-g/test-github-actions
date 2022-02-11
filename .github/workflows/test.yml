@@ -1,27 +1,40 @@
-name: Test Script
+name: Timesheets DB Build/Deploy staging
 on:
-  push
+  workflow_dispatch:
 
 jobs:
-  build-timesheets-server-staging:
-    name: Test Script Run
+  build-deploy-timesheets-DB-staging:
+    name: Build/Deploy the timesheets database in staging account
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        
-      - name: Setup ssh
-        env:
-          SSH_PRIVATE_KEY: secret_key
-        run: |
-         bash scripts/test.sh "$SSH_PRIVATE_KEY" timesheet.ts-stage.everest.engineering timesheets_server
 
-      # - name: setup and run ansible playbook
-      #   env:
-      #     ENV: staging
-      #     AWS_ACCESS_KEY_ID: ${{secrets.TIMESHEETS_STAGING_AWS_ACCESS_KEY_ID}}
-      #     AWS_SECRET_ACCESS_KEY: ${{secrets.TIMESHEETS_STAGING_AWS_SECRET_ACCESS_KEY}}
-      #     AWS_DEFAULT_REGION: ${{secrets.TIMESHEETS_STAGING_AWS_DEFAULT_REGION}} 
-      #   run: |
-      #    bash scripts/environment_setup.sh server-build.yml staging
- 
+      - name: Setup ssh 
+        run: |
+          mkdir -p ~/.ssh
+          echo '${{secrets.TIMESHEETS_STAGING_SSH_PRIVATE_KEY}}' > ~/.ssh/id_rsa
+          chmod 400 ~/.ssh/id_rsa
+      
+      - name: Setup ssh config 
+        run: |
+          private_ip=10.10.2.204
+          echo $private_ip
+          echo "Host timesheets_server_instance
+          HostName timesheet.ts-stage.everest.engineering
+          StrictHostKeyChecking no
+          User ec2-user
+          IdentityFile ~/.ssh/id_rsa
+          ProxyCommand none
+          Host timesheets_database_instance
+          HostName $private_ip
+          StrictHostKeyChecking no
+          User ec2-user
+          IdentityFile ~/.ssh/id_rsa
+          ProxyCommand ssh timesheets_server_instance -W %h:%p" > ~/.ssh/config
+          cat ~/.ssh/config
+
+      - name: create inventory file
+        run: |
+          echo '[timesheets_database]
+          timesheets_database_instance' > ~/inventory  
