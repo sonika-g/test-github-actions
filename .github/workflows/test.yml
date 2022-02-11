@@ -1,6 +1,6 @@
 name: Timesheets DB Build/Deploy staging
 on:
-  workflow_dispatch:
+  push
 
 jobs:
   build-deploy-timesheets-DB-staging:
@@ -20,7 +20,7 @@ jobs:
         run: |
           private_ip=10.10.2.204
           echo $private_ip
-          echo "Host timesheets_server_instance
+          echo 'Host timesheets_server_instance
           HostName timesheet.ts-stage.everest.engineering
           StrictHostKeyChecking no
           User ec2-user
@@ -31,7 +31,7 @@ jobs:
           StrictHostKeyChecking no
           User ec2-user
           IdentityFile ~/.ssh/id_rsa
-          ProxyCommand ssh timesheets_server_instance -W %h:%p" > ~/.ssh/config
+          ProxyCommand ssh timesheets_server_instance -W %h:%p' > ~/.ssh/config
           cat ~/.ssh/config
 
       - name: create inventory file
